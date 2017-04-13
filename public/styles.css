@@ -1,0 +1,13 @@
+body {
+  padding-top: 65px;
+}
+
+#main {
+  margin-top: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#upload {
+  padding: 30vh;
+}

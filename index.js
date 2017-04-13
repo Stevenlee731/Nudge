@@ -24,18 +24,18 @@ app.get('/users', (req, res) => {
     res.sendStatus(200)
   })
 })
-
-app.put('/users', (req, res) => {
-  knex('users').update(req.body).then(() => {
-    res.sendStatus(200)
-  })
-})
-
-app.delete('/users/:id', (req, res) => {
-  knex('users').where(id, req.params.id).then(() => {
-    res.sendStatus(204)
-  })
-})
+//
+// app.put('/users', (req, res) => {
+//   knex('users').update(req.body).then(() => {
+//     res.sendStatus(200)
+//   })
+// })
+//
+// app.delete('/users/:id', (req, res) => {
+//   knex('users').where(id, req.params.id).then(() => {
+//     res.sendStatus(204)
+//   })
+// })
 
 // Profiles
 app.post('/profiles', (req, res) => {
@@ -51,19 +51,19 @@ app.get('/profiles', (req, res) => {
   })
 })
 
-app.put('/profiles', (req, res) => {
-  knex.select('id').from('profiles').then((result) => {
-    console.log(result)
-    res.sendStatus(200)
-  })
-})
-
-app.delete('/profiles', (req, res) => {
-  knex.select('id').from('profiles').then((result) => {
-    console.log(result)
-    res.sendStatus(200)
-  })
-})
+// app.put('/profiles', (req, res) => {
+//   knex.select('id').from('profiles').then((result) => {
+//     console.log(result)
+//     res.sendStatus(200)
+//   })
+// })
+//
+// app.delete('/profiles', (req, res) => {
+//   knex.select('id').from('profiles').then((result) => {
+//     console.log(result)
+//     res.sendStatus(200)
+//   })
+// })
 
 // recommendations
 // app.post('/recommendations', (req, res) => {
