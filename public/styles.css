@@ -11,3 +11,9 @@ body {
 #upload {
   padding: 30vh;
 }
+
+#submit-profile {
+  border: none;
+  background: none;
+  padding: 0;
+}
