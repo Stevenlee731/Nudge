@@ -68,13 +68,16 @@ app.listen(3000, () => {
 //     res.sendStatus(200)
 //   })
 // })
-//
-// app.delete('/profiles', (req, res) => {
-//   knex.select('id').from('profiles').then((result) => {
-//     console.log(result)
-//     res.sendStatus(200)
-//   })
-// })
+
+app.delete('/profiles', (req, res) => {
+  knex('profiles')
+  .where('user_id', null)
+  .del()
+  .then(() => {
+    console.log('deleted')
+    res.sendStatus(204)
+  })
+})
 
 // recommendations
 // app.post('/recommendations', (req, res) => {
