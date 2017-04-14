@@ -18,6 +18,10 @@ body {
   padding: 0;
 }
 
+.hidden {
+  display: none;
+}
+
 .margins {
   margin-left: 20px;
   margin-right: 20px;
@@ -25,4 +29,12 @@ body {
 
 .ui.basic.teal.button.no-shadow {
   box-shadow: none !important;
+}
+
+#my-profile:hover {
+  color: #00c4bc !important;
+}
+
+#my-friends:hover {
+  color: #00c4bc !important;
 }

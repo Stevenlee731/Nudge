@@ -51,7 +51,7 @@ app.post('/profiles', (req, res) => {
 app.get('/profiles', (req, res) => {
   knex.select().from('profiles').then((result) => {
     console.log(result)
-    res.sendStatus(200)
+    res.json()
   })
   .catch(() => {
     res.sendStatus(500)
