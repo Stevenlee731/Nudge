@@ -40,32 +40,116 @@ $uploadButton.addEventListener('click', () => {
   ;
 })
 
-$profileForm.addEventListener('submit', () => {
-  console.log('submit')
+$profileForm.addEventListener('submit', (event) => {
+  event.preventDefault()
 
   var profileFormData = new FormData($profileForm)
+  //
+  // for (var field of profileFormData.entries()) {
+  //   console.log(field[0], field[1])
+  // }
 
-  for (var field of profileFormData.entries()) {
-    console.log(field[0], field[1])
+  var profile = {
+    first_name: profileFormData.get('first_name'),
+    last_name: profileFormData.get('last_name'),
+    gender: profileFormData.get('gender'),
+    age: profileFormData.get('age'),
+    seeking: profileFormData.get('seeking'),
+    ethnicity: profileFormData.get('ethnicity'),
+    occupation: profileFormData.get('occupation'),
+    imageURL: profileFormData.get('imageURL')
   }
-  // fetch('/profiles', {
-  //   method: 'post',
-  //   body: formData
-  // })
+
+  console.log(JSON.stringify(profile))
+
+  fetch('/profiles', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(profile)
+  })
 })
 
 
-$('.ui.form')
-  .form({
-    fields: {
-      first_name     : 'empty',
-      last_name     : 'empty',
-      gender   : 'empty',
-      age   : 'empty',
-      ethnicity   : 'empty',
-      seeking   : 'empty',
-      occupation   : 'empty',
-      terms    : 'checked'
-    }
-  })
-;
+
+//
+// $('.ui.form')
+// .form({
+//   on: 'blur',
+//   fields: {
+//     first_name: {
+//       identifier  : 'empty',
+//       rules: [
+//         {
+//           type   : 'empty',
+//           prompt : 'Please enter a value'
+//         }
+//       ]
+//     },
+//     last_name: {
+//       identifier  : 'empty',
+//       rules: [
+//         {
+//           type   : 'empty',
+//           prompt : 'Please enter a value'
+//         }
+//       ]
+//     },
+//     gender: {
+//       identifier  : 'dropdown',
+//       rules: [
+//         {
+//           type   : 'empty',
+//           prompt : 'Please select a dropdown value'
+//         }
+//       ]
+//     },
+//     age: {
+//       identifier  : 'dropdown',
+//       rules: [
+//         {
+//           type   : 'empty',
+//           prompt : 'Please select a dropdown value'
+//         }
+//       ]
+//     },
+//     ethnicity: {
+//       identifier  : 'dropdown',
+//       rules: [
+//         {
+//           type   : 'empty',
+//           prompt : 'Please select a dropdown value'
+//         }
+//       ]
+//     },
+//     seeking: {
+//       identifier  : 'dropdown',
+//       rules: [
+//         {
+//           type   : 'empty',
+//           prompt : 'Please select a dropdown value'
+//         }
+//       ]
+//     },
+//     occupation: {
+//       identifier  : 'empty',
+//       rules: [
+//         {
+//           type   : 'empty',
+//           prompt : 'Please enter a value'
+//         }
+//       ]
+//     },
+//     checkbox: {
+//       identifier  : 'checkbox',
+//       rules: [
+//         {
+//           type   : 'checked',
+//           prompt : 'Please check the checkbox'
+//         }
+//       ]
+//     }
+//   }
+// })

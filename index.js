@@ -43,13 +43,22 @@ app.post('/profiles', (req, res) => {
   knex('profiles').insert(req.body).then(() => {
     res.sendStatus(200)
   })
+  // .catch(()=> {
+  //   res.sendStatus(400)
+  // })
 })
 
 app.get('/profiles', (req, res) => {
-  knex.select('id').from('profiles').then((result) => {
+  knex.select().from('profiles').then((result) => {
     console.log(result)
-    res.sendStatus(200)
+    // .catch(() => {
+    //   res.sendStatus(400)
+    // })
   })
+})
+
+app.listen(3000, () => {
+  console.log('listening on port 3000')
 })
 
 // app.put('/profiles', (req, res) => {
@@ -93,7 +102,3 @@ app.get('/profiles', (req, res) => {
 //     res.sendStatus(200)
 //   })
 // })
-
-app.listen(3000, () => {
-  console.log('listening on port 3000')
-})

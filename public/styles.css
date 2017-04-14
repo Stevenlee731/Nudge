@@ -17,3 +17,8 @@ body {
   background: none;
   padding: 0;
 }
+
+.margins {
+  margin-left: 20px;
+  margin-right: 20px;
+}
