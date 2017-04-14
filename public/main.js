@@ -57,7 +57,7 @@ $profileForm.addEventListener('submit', (event) => {
     seeking: profileFormData.get('seeking'),
     ethnicity: profileFormData.get('ethnicity'),
     occupation: profileFormData.get('occupation'),
-    imageURL: profileFormData.get('imageURL')
+    image_url: profileFormData.get('image_url')
   }
 
   console.log(JSON.stringify(profile))
