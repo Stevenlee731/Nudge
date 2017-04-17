@@ -6,6 +6,7 @@ const $friendUpload = document.querySelector('#friend-upload')
 const $profileForm = document.querySelector('#profile-form')
 const $uploadButton = document.querySelector('#upload-button')
 const $myFriends = document.querySelector('#my-friends')
+const $profileUpload = document.querySelector('#profile-upload')
 
 // fetch profiles
 function fetchProfiles() {
@@ -29,7 +30,9 @@ function changeView(viewList, activeView) {
 // render profiles
 function renderList(profile) {
   var $profile = document.createElement('div')
-  var $
+  var $image = document.createElement('img')
+  var $name = document.createElement('h2')
+  var $occupation = document.createElement('p')
 }
 
 $uploadButton.addEventListener('click', () => {
@@ -42,7 +45,8 @@ $uploadButton.addEventListener('click', () => {
   ;
 })
 
-$profileForm.addEventListener('submit', (event) => {
+$profileUpload.addEventListener('click', (event) => {
+  console.log('upload')
   event.preventDefault()
 
   var profileFormData = new FormData($profileForm)
@@ -55,7 +59,10 @@ $profileForm.addEventListener('submit', (event) => {
     seeking: profileFormData.get('seeking'),
     ethnicity: profileFormData.get('ethnicity'),
     occupation: profileFormData.get('occupation'),
-    image_url: profileFormData.get('image_url')
+    image_url: profileFormData.get('image_url'),
+    location: profileFormData.get('location'),
+    about_me: profileFormData.get('about_me'),
+    user_id: '1'
   }
 
   console.log(JSON.stringify(profile))
