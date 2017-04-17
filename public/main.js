@@ -14,6 +14,9 @@ function fetchProfiles() {
   var profilePromise = fetchPromise.then(res => {
     return res.json()
   })
+  .catch(err => {
+  console.log(err)
+  })
   return profilePromise
 }
 
@@ -30,9 +33,36 @@ function changeView(viewList, activeView) {
 // render profiles
 function renderList(profile) {
   var $profile = document.createElement('div')
-  var $image = document.createElement('img')
-  var $name = document.createElement('h2')
-  var $occupation = document.createElement('p')
+  var $imageHolder = document.createElement('div')
+  var $imageURL = document.createElement('img')
+  var $content = document.createElement('div')
+  var $name = document.createElement('div')
+  var $age = document.createElement('div')
+  var $snippet = document.createElement('div')
+
+  $profile.appendChild($imageHolder)
+  $imageHolder.appendChild($imageURL)
+  $profile.appendChild($content)
+  $content.appendChild($name)
+  $content.appendChild($age)
+  $content.appendChild($snippet)
+
+  $profile.classList.add('card')
+  $profile.setAttribute('data-profile-id', profile.id)
+
+  $imageHolder.classList.add('image')
+  $imageURL.setAttribute('src', profile.image_url)
+
+  $content.classList.add('content')
+  $name.classList.add('header')
+  $age.classList.add('meta')
+  $snippet.classList.add('description')
+
+  $age.textContent = profile.age
+  $name.textContent = profile.first_name + ' ' + profile.last_name
+  $snippet.textContent = profile.first_name + ' is a' + ' ' + profile.occupation + ' living in' + ' ' + profile.locations + '.'
+
+  return $profile
 }
 
 $uploadButton.addEventListener('click', () => {
@@ -60,7 +90,7 @@ $profileUpload.addEventListener('click', (event) => {
     ethnicity: profileFormData.get('ethnicity'),
     occupation: profileFormData.get('occupation'),
     image_url: profileFormData.get('image_url'),
-    location: profileFormData.get('location'),
+    locations: profileFormData.get('locations'),
     about_me: profileFormData.get('about_me'),
     user_id: '1'
   }
@@ -80,6 +110,9 @@ $profileUpload.addEventListener('click', (event) => {
 $myFriends.addEventListener('click', event => {
   changeView($viewList, '#friend-list')
   fetchProfiles()
+    .then(function (results) {
+      console.log(results.json(results))
+    })
 })
 
 $('#left-menu').first()

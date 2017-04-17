@@ -34,7 +34,8 @@ app.post('/profiles', (req, res) => {
   knex('profiles').insert(req.body).then(() => {
     res.sendStatus(200)
   })
-  .catch(()=> {
+  .catch(function (err) {
+    console.log(err)
     res.sendStatus(400)
   })
 })
@@ -43,6 +44,10 @@ app.get('/profiles', (req, res) => {
   knex.select().from('profiles').then((result) => {
     console.log(result)
     res.json()
+  })
+  .catch(function (err) {
+    console.log(err)
+    res.sendstatus(400)
   })
 })
 

@@ -9,8 +9,8 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   const query = knex.schema.table('profiles', t => {
-    t.string('locations')
-    t.string('about_me')
+    t.dropColumn('locations')
+    t.dropColumn('about_me')
   })
 
   return query
