@@ -12,10 +12,6 @@ const $profileForm = document.querySelector('#profile-form')
 const $uploadButton = document.querySelector('#upload-button')
 const $submitProfile = document.querySelector('#submit-profile')
 
-// fetch
-
-
-
 // Change Views
 function changeView(viewList, activeView) {
   viewList.forEach(function (view) {
@@ -44,10 +40,6 @@ $profileForm.addEventListener('submit', (event) => {
   event.preventDefault()
 
   var profileFormData = new FormData($profileForm)
-  //
-  // for (var field of profileFormData.entries()) {
-  //   console.log(field[0], field[1])
-  // }
 
   var profile = {
     first_name: profileFormData.get('first_name'),
@@ -71,85 +63,3 @@ $profileForm.addEventListener('submit', (event) => {
     body: JSON.stringify(profile)
   })
 })
-
-
-
-//
-// $('.ui.form')
-// .form({
-//   on: 'blur',
-//   fields: {
-//     first_name: {
-//       identifier  : 'empty',
-//       rules: [
-//         {
-//           type   : 'empty',
-//           prompt : 'Please enter a value'
-//         }
-//       ]
-//     },
-//     last_name: {
-//       identifier  : 'empty',
-//       rules: [
-//         {
-//           type   : 'empty',
-//           prompt : 'Please enter a value'
-//         }
-//       ]
-//     },
-//     gender: {
-//       identifier  : 'dropdown',
-//       rules: [
-//         {
-//           type   : 'empty',
-//           prompt : 'Please select a dropdown value'
-//         }
-//       ]
-//     },
-//     age: {
-//       identifier  : 'dropdown',
-//       rules: [
-//         {
-//           type   : 'empty',
-//           prompt : 'Please select a dropdown value'
-//         }
-//       ]
-//     },
-//     ethnicity: {
-//       identifier  : 'dropdown',
-//       rules: [
-//         {
-//           type   : 'empty',
-//           prompt : 'Please select a dropdown value'
-//         }
-//       ]
-//     },
-//     seeking: {
-//       identifier  : 'dropdown',
-//       rules: [
-//         {
-//           type   : 'empty',
-//           prompt : 'Please select a dropdown value'
-//         }
-//       ]
-//     },
-//     occupation: {
-//       identifier  : 'empty',
-//       rules: [
-//         {
-//           type   : 'empty',
-//           prompt : 'Please enter a value'
-//         }
-//       ]
-//     },
-//     checkbox: {
-//       identifier  : 'checkbox',
-//       rules: [
-//         {
-//           type   : 'checked',
-//           prompt : 'Please check the checkbox'
-//         }
-//       ]
-//     }
-//   }
-// })
