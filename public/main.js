@@ -1,4 +1,3 @@
-// Global Variables
 const $viewList = ["#friend-list", "#friend-detail", "#friend-upload"]
 const $friendList = document.querySelector('#friend-list')
 const $friendDetail = document.querySelector('#friend-detail')
@@ -8,7 +7,6 @@ const $uploadButton = document.querySelector('#upload-button')
 const $myFriends = document.querySelector('#my-friends')
 const $profileUpload = document.querySelector('#profile-upload')
 
-// fetch profiles
 function fetchProfiles() {
   var fetchPromise = fetch('/profiles')
   var profilePromise = fetchPromise.then(res => {
@@ -20,7 +18,12 @@ function fetchProfiles() {
   return profilePromise
 }
 
-// Change Views
+function clearView(parent, child) {
+  var $parent = document.querySelector(parent)
+  var $child = document.querySelector(child)
+  $parent.removeChild($child)
+}
+
 function changeView(viewList, activeView) {
   viewList.forEach(function (view) {
     var $view = document.querySelector(view)
@@ -30,8 +33,43 @@ function changeView(viewList, activeView) {
   $activeView.classList.remove('hidden')
 }
 
-// render profiles
 function renderList(profile) {
+  var $vowel = function findVowel (occupation) {
+    if (occupation.startsWith('a') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('e') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('i') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('o') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('u') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('A') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('E') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('I') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('O') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('U') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else {
+      return profile.first_name + ' is a' + ' ' + profile.occupation
+    }
+  }
+
   var $profile = document.createElement('div')
   var $imageHolder = document.createElement('div')
   var $imageURL = document.createElement('img')
@@ -58,9 +96,9 @@ function renderList(profile) {
   $age.classList.add('meta')
   $snippet.classList.add('description')
 
-  $age.textContent = profile.age
+  $age.textContent = 'Age ' + profile.age
   $name.textContent = profile.first_name + ' ' + profile.last_name
-  $snippet.textContent = profile.first_name + ' is a' + ' ' + profile.occupation + ' living in' + ' ' + profile.locations + '.'
+  $snippet.textContent = $vowel(profile.occupation) + ' living in' + ' ' + profile.locations + '.'
 
   return $profile
 }
@@ -110,12 +148,24 @@ $profileUpload.addEventListener('click', (event) => {
 $myFriends.addEventListener('click', event => {
   changeView($viewList, '#friend-list')
   fetchProfiles()
-    .then(function (results) {
-      console.log(results.json(results))
+    .then(function (profiles) {
+      return profiles.map(renderList)
+    })
+    .then(results => {
+      results.forEach($profiles => {
+        $friendList.appendChild($profiles)
+      })
     })
 })
 
 $('#left-menu').first()
   .sidebar('setting', {transition: 'push'})
   .sidebar('attach events', '.mobile-button')
+  $('.ui.dropdown')
+  .dropdown()
+;
+
+
+$('.ui.dropdown.item')
+  .dropdown()
 ;

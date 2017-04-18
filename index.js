@@ -22,7 +22,7 @@ app.post('/users', (req, res) => {
 app.get('/users', (req, res) => {
   knex.select('id').from('users').then((result) => {
     console.log(result)
-    res.json()
+    res.json(result)
   })
   .catch(() => {
     res.sendStatus(500)
@@ -43,7 +43,7 @@ app.post('/profiles', (req, res) => {
 app.get('/profiles', (req, res) => {
   knex.select().from('profiles').then((result) => {
     console.log(result)
-    res.json()
+    res.json(result)
   })
   .catch(function (err) {
     console.log(err)
