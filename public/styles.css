@@ -1,0 +1,28 @@
+body {
+  padding-top: 65px;
+}
+
+#main {
+  margin-top: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#upload {
+  padding: 30vh;
+}
+
+#submit-profile {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.margins {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.ui.basic.teal.button.no-shadow {
+  box-shadow: none !important;
+}
