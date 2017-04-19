@@ -22,7 +22,10 @@ app.post('/users', (req, res) => {
 app.get('/users', (req, res) => {
   knex.select('id').from('users').then((result) => {
     console.log(result)
-    res.sendStatus(200)
+    res.json(result)
+  })
+  .catch(() => {
+    res.sendStatus(500)
   })
 })
 
@@ -31,18 +34,21 @@ app.post('/profiles', (req, res) => {
   knex('profiles').insert(req.body).then(() => {
     res.sendStatus(200)
   })
+
 })
 
 app.get('/profiles', (req, res) => {
   knex.select().from('profiles').then((result) => {
     console.log(result)
-    res.sendStatus(200)
+    res.json(result)
   })
-  .catch(() => {
-    res.sendStatus(500)
+  .catch(function (err) {
+    console.log(err)
+    res.sendstatus(400)
   })
 })
 
 app.listen(3000, () => {
   console.log('listening on port 3000')
 })
+

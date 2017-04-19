@@ -1,30 +1,88 @@
-$('#left-menu').first()
-  .sidebar('setting', {transition: 'push'})
-  .sidebar('attach events', '.mobile-button')
-;
-
-// Global Variables
-const $viewList = ['#friend-list', '#friend-detail', '#friend-upload']
+const $viewList = ["#friend-list", "#friend-detail", "#friend-upload"]
 const $friendList = document.querySelector('#friend-list')
 const $friendDetail = document.querySelector('#friend-detail')
 const $friendUpload = document.querySelector('#friend-upload')
 const $profileForm = document.querySelector('#profile-form')
 const $uploadButton = document.querySelector('#upload-button')
-const $submitProfile = document.querySelector('#submit-profile')
 
-// Change Views
 function changeView(viewList, activeView) {
   viewList.forEach(function (view) {
     var $view = document.querySelector(view)
     $view.classList.add('hidden')
   })
-  viewList.find(view => {
-    return activeView
-  })
   var $activeView = document.querySelector(activeView)
   $activeView.classList.remove('hidden')
 }
 
+function renderList(profile) {
+  var $vowel = function findVowel (occupation) {
+    if (occupation.startsWith('a') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('e') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('i') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('o') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('u') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('A') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('E') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('I') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('O') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else if (occupation.startsWith('U') === true) {
+      return profile.first_name + ' is an' + ' ' + profile.occupation
+    }
+    else {
+      return profile.first_name + ' is a' + ' ' + profile.occupation
+    }
+  }
+
+  var $profile = document.createElement('div')
+  var $imageHolder = document.createElement('div')
+  var $imageURL = document.createElement('img')
+  var $content = document.createElement('div')
+  var $name = document.createElement('div')
+  var $age = document.createElement('div')
+  var $snippet = document.createElement('div')
+
+  $profile.appendChild($imageHolder)
+  $imageHolder.appendChild($imageURL)
+  $profile.appendChild($content)
+  $content.appendChild($name)
+  $content.appendChild($age)
+  $content.appendChild($snippet)
+
+  $profile.classList.add('card')
+  $profile.setAttribute('data-profile-id', profile.id)
+
+  $imageHolder.classList.add('image')
+  $imageURL.setAttribute('src', profile.image_url)
+
+  $content.classList.add('content')
+  $name.classList.add('header')
+  $age.classList.add('meta')
+  $snippet.classList.add('description')
+
+  $age.textContent = 'Age ' + profile.age
+  $name.textContent = profile.first_name + ' ' + profile.last_name
+  $snippet.textContent = $vowel(profile.occupation) + ' living in' + ' ' + profile.locations + '.'
+
+  return $profile
+}
 
 $uploadButton.addEventListener('click', () => {
   $('.ui.modal')
@@ -36,7 +94,8 @@ $uploadButton.addEventListener('click', () => {
   ;
 })
 
-$profileForm.addEventListener('submit', (event) => {
+$profileUpload.addEventListener('click', (event) => {
+  console.log('upload')
   event.preventDefault()
 
   var profileFormData = new FormData($profileForm)
@@ -49,7 +108,10 @@ $profileForm.addEventListener('submit', (event) => {
     seeking: profileFormData.get('seeking'),
     ethnicity: profileFormData.get('ethnicity'),
     occupation: profileFormData.get('occupation'),
-    image_url: profileFormData.get('image_url')
+    image_url: profileFormData.get('image_url'),
+    locations: profileFormData.get('locations'),
+    about_me: profileFormData.get('about_me'),
+    user_id: '1'
   }
 
   console.log(JSON.stringify(profile))
@@ -63,3 +125,4 @@ $profileForm.addEventListener('submit', (event) => {
     body: JSON.stringify(profile)
   })
 })
+

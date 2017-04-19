@@ -13,22 +13,23 @@
     <img class="ui small image" src="http://rs276.pbsrc.com/albums/kk27/mayunce/p-hitch.jpg~c200">
   </div>
   <a class="item">Alex Hitchens</a>
+
 </div>
 
 
-<div class="ui top fixed attached stackable menu page grid">
+<div class="ui top fixed attached stackable menu page">
   <div class="ui container">
     <div class="item">
       <img class="ui mini image" src="http://i.imgur.com/A8r9Pg5.png">
     </div>
-    <a class="item mobile-button">My Profile</a>
+
   </div>
 </div>
 
 
 <div class="pusher">
     <div id="main" class="container">
-      <div id="#friend-upload">
+      <div id="friend-upload">
         <div id="upload" class="ui very padded center aligned segment">
           <button id="upload-button" class="ui teal basic button no-shadow">
             <div><i class="big add user icon"></i></div>
@@ -36,33 +37,35 @@
           </button>
         </div>
       </div>
-      <div id="#friend-list">
+
+      <div id="friend-list" class="ui link cards">
+
+
+
 
 
       </div>
-      <div id="#friend-detail">
+
+      <div id="friend-detail">
 
 
       </div>
     </div>
 </div>
 
-<!-- modal -->
+
 <div class="ui modal">
   <i class="close icon"></i>
   <div class="header">
     Tell us about your friend!
   </div>
   <div class="image content">
-
     <div class="ui medium slide masked reveal image">
       <img class="ui medium rounded image visible content" src="https://semantic-ui.com/images/wireframe/image.png">
       <img src="http://i.imgur.com/8BLPFL8.png" class="hidden content">
     </div>
     <div class="description">
-
-      <!-- Upload Form -->
-      <form id="profile-form" class="ui form">
+      <form method="post" id="profile-form" class="ui form">
         <div class="field">
           <div class="two fields">
             <div class="field">
@@ -134,26 +137,36 @@
         </div>
 
         <div class="field">
-          <div class="fields">
-            <div class="eight wide field">
+          <div class="three fields">
+            <div class="field">
+              <select name="locations" class="ui fluid dropdown">
+                <option value="">Location</option>
+                <option value="LA">Los Angeles</option>
+                <option value="OC">Orange County</option>
+              </select>
+            </div>
+            <div class="field">
               <input type="text" name="occupation" placeholder="Occupation">
             </div>
-            <div class="eight wide field">
+            <div class="field">
               <input type="text" name="image_url" placeholder="Image URL">
             </div>
           </div>
         </div>
-          <button id="submit-profile" class="ui right floated button" type="submit">
-            <div class="ui positive right labeled icon button">
-              Create!
-              <i class="checkmark icon"></i>
-            </div>
-          </button>
+
       </form>
     </div>
   </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Nope
+    </div>
+    <div id="profile-upload" type="submit" value="submit" form="profile-form" class="ui positive right labeled icon button">
+      Looks Good!
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
 </div>
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>

@@ -1,6 +1,7 @@
 exports.up = function(knex, Promise) {
   const query = knex.schema.table('profiles', t => {
-    t.string('image_url').notNull()
+    t.string('locations')
+    t.string('about_me')
   })
 
   return query
@@ -8,7 +9,8 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   const query = knex.schema.table('profiles', t => {
-    t.dropColumn('image_url')
+    t.dropColumn('locations')
+    t.dropColumn('about_me')
   })
 
   return query
