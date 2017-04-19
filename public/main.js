@@ -27,6 +27,7 @@ function fetchProfileDetail(profileID) {
   console.log(err)
   })
   return profilePromise
+}
 
 function clearView(parent, child) {
   var $parent = document.querySelector(parent)
@@ -238,7 +239,7 @@ function renderList(profile) {
 }
 
 document.addEventListener("DOMContentLoaded", event => {
-  // console.log("DOM fully loaded and parsed");
+  console.log("DOM fully loaded and parsed");
 })
 
 $uploadButton.addEventListener('click', () => {
@@ -312,9 +313,16 @@ document.addEventListener('click', event => {
         console.log($profile)
         let $detailModal = document.querySelector('#detail-list')
         $detailModal.appendChild($profile)
+        let $modals = document.querySelector('.dimmer')
+        $('.ui.dimmer.modals.page.transition.hidden').empty()
+        // if ($modals.hasChildNodes()) {
+        //   $('.ui.dimmer.modals.page.transition.hidden').empty()
+        // }
         $('.ui.detail.modal')
           .modal('show')
         ;
+        $('.ui.detail.modal.transition.visible.active')
+          .modal('onHidden').empty()
       })
   }
 })
