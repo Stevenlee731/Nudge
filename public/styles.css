@@ -3,9 +3,7 @@ body {
 }
 
 #main {
-  margin-top: 5%;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin: 5%;
 }
 
 #upload {
@@ -37,4 +35,8 @@ body {
 
 #my-friends:hover {
   color: #00c4bc !important;
+}
+
+div.ui.teal.image.label {
+  margin-bottom: 5px !important;
 }

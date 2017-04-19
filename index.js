@@ -51,6 +51,17 @@ app.get('/profiles', (req, res) => {
   })
 })
 
+app.get('/profiles/:id', function (req, res) {
+  knex('profiles').where('id', req.params.id).first().then((result) => {
+    console.log(result)
+    res.json(result)
+  })
+  .catch(function (err) {
+    console.log(err)
+    res.sendstatus(400)
+  })
+})
+
 app.listen(3000, () => {
   console.log('listening on port 3000')
 })
