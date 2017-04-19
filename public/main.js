@@ -27,7 +27,6 @@ function fetchProfileDetail(profileID) {
   console.log(err)
   })
   return profilePromise
-}
 
 function clearView(parent, child) {
   var $parent = document.querySelector(parent)

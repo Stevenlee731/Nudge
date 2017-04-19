@@ -12,7 +12,6 @@ var knex = require('knex')({
   }
 })
 
-// users
 app.post('/users', (req, res) => {
   knex('users').insert(req.body).then(() => {
     res.sendStatus(200)
