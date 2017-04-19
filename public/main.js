@@ -301,12 +301,10 @@ $myFriends.addEventListener('click', event => {
 })
 
 document.addEventListener('click', event => {
-  // console.log('click')
   var profileID = event.target.getAttribute('data-profile-id')
   if (event.target.getAttribute('data-profile-id')) {
     fetchProfileDetail(profileID)
       .then(profile => {
-        // console.log(profile)
         return renderDetail(profile)
       })
       .then($profile => {
@@ -315,14 +313,9 @@ document.addEventListener('click', event => {
         $detailModal.appendChild($profile)
         let $modals = document.querySelector('.dimmer')
         $('.ui.dimmer.modals.page.transition.hidden').empty()
-        // if ($modals.hasChildNodes()) {
-        //   $('.ui.dimmer.modals.page.transition.hidden').empty()
-        // }
         $('.ui.detail.modal')
           .modal('show')
         ;
-        $('.ui.detail.modal.transition.visible.active')
-          .modal('onHidden').empty()
       })
   }
 })
