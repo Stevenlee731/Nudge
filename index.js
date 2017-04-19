@@ -34,10 +34,7 @@ app.post('/profiles', (req, res) => {
   knex('profiles').insert(req.body).then(() => {
     res.sendStatus(200)
   })
-  .catch(function (err) {
-    console.log(err)
-    res.sendStatus(400)
-  })
+
 })
 
 app.get('/profiles', (req, res) => {
@@ -55,12 +52,3 @@ app.listen(3000, () => {
   console.log('listening on port 3000')
 })
 
-app.delete('/profiles', (req, res) => {
-  knex('profiles')
-  .where('user_id', null)
-  .del()
-  .then(() => {
-    console.log('deleted')
-    res.sendStatus(204)
-  })
-})

@@ -4,25 +4,6 @@ const $friendDetail = document.querySelector('#friend-detail')
 const $friendUpload = document.querySelector('#friend-upload')
 const $profileForm = document.querySelector('#profile-form')
 const $uploadButton = document.querySelector('#upload-button')
-const $myFriends = document.querySelector('#my-friends')
-const $profileUpload = document.querySelector('#profile-upload')
-
-function fetchProfiles() {
-  var fetchPromise = fetch('/profiles')
-  var profilePromise = fetchPromise.then(res => {
-    return res.json()
-  })
-  .catch(err => {
-  console.log(err)
-  })
-  return profilePromise
-}
-
-function clearView(parent, child) {
-  var $parent = document.querySelector(parent)
-  var $child = document.querySelector(child)
-  $parent.removeChild($child)
-}
 
 function changeView(viewList, activeView) {
   viewList.forEach(function (view) {
@@ -145,27 +126,3 @@ $profileUpload.addEventListener('click', (event) => {
   })
 })
 
-$myFriends.addEventListener('click', event => {
-  changeView($viewList, '#friend-list')
-  fetchProfiles()
-    .then(function (profiles) {
-      return profiles.map(renderList)
-    })
-    .then(results => {
-      results.forEach($profiles => {
-        $friendList.appendChild($profiles)
-      })
-    })
-})
-
-$('#left-menu').first()
-  .sidebar('setting', {transition: 'push'})
-  .sidebar('attach events', '.mobile-button')
-  $('.ui.dropdown')
-  .dropdown()
-;
-
-
-$('.ui.dropdown.item')
-  .dropdown()
-;
