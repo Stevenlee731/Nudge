@@ -54,10 +54,7 @@ app.post('/profiles', (req, res) => {
   knex('profiles').insert(req.body).then(() => {
     res.sendStatus(200)
   })
-  .catch(function (err) {
-    console.log(err)
-    res.sendStatus(400)
-  })
+
 })
 
 app.get('/profiles/users/:user_id', (req, res) => {
