@@ -20,10 +20,10 @@
 
     <div id="sidebar" class="ui labeled icon left inline vertical sidebar menu uncover">
       <div class="nudge item">
-        <img id="user-image" class="ui circular small image" src="http://rs276.pbsrc.com/albums/kk27/mayunce/p-hitch.jpg~c200">
+        <img id="user-image" class="ui circular small image" src="http://i.imgur.com/8BLPFL8.png">
       </div>
       <a id="my-user" class="nudge item">
-        User Name
+        Login
       </a>
       <a id="my-friends" class="nudge item">
         My Friends
@@ -34,7 +34,7 @@
     </div>
     <div class="pusher">
         <div id="main" class="container">
-          <div id="change-user" class="invisible">
+          <div id="change-user">
             <div class="ui middle aligned center aligned grid">
               <div class="column login">
                 <h2 class="ui teal image header">
@@ -44,7 +44,7 @@
                   </div>
                 </h2>
 
-                <form id="user-form" class="ui large form">
+                <form id="user-form" class="ui large form success">
                   <div class="ui stacked segment">
                     <div class="field">
                       <select name="username" class="user ui fluid selection dropdown">
@@ -57,11 +57,14 @@
                     <button type="submit" id="change-button" class="ui fluid large teal submit button">Login</button>
                   </div>
                 </form>
+                <div id="login-success" class="ui success hidden message">
+                  <div class="header">You are logged in!</div>
+                </div>
 
               </div>
             </div>
           </div>
-          <div id="friend-upload">
+          <div id="friend-upload" class="invisible">
             <div id="upload" class="ui very padded center aligned segment">
               <button id="upload-button" class="ui teal basic button no-shadow">
                 <div><i class="big add user icon"></i></div>

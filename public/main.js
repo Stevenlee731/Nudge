@@ -9,10 +9,18 @@ const $myUpload = document.querySelector('#my-upload')
 const $myUser = document.querySelector('#my-user')
 const $profileUpload = document.querySelector('#profile-upload')
 const $changeUser = document.querySelector('#user-form')
-const $users = []
+var $user
+
+function changeProfile(url, username) {
+  var $profilePhoto = document.querySelector('#user-image')
+  var $profileName = document.querySelector('#my-user')
+
+  $profilePhoto.setAttribute('src', url)
+  $profileName.textContent = username
+}
 
 function fetchProfiles() {
-  var fetchPromise = fetch('/profiles/users/1')
+  var fetchPromise = fetch('/profiles/users/' + $user.id)
   var profilePromise = fetchPromise.then(res => {
     return res.json()
   })
@@ -42,12 +50,6 @@ function fetchUser(id) {
   console.log(err)
   })
   return profilePromise
-}
-
-function clearView(parent, child) {
-  var $parent = document.querySelector(parent)
-  var $child = document.querySelector(child)
-  $parent.removeChild($child)
 }
 
 function changeView(viewList, activeView) {
@@ -260,7 +262,6 @@ function renderList(profile) {
 }
 
 document.addEventListener("DOMContentLoaded", event => {
-  console.log("DOM fully loaded and parsed");
 })
 
 $uploadButton.addEventListener('click', () => {
@@ -290,7 +291,7 @@ $profileUpload.addEventListener('click', (event) => {
     image_url: profileFormData.get('image_url'),
     locations: profileFormData.get('locations'),
     about_me: profileFormData.get('about_me'),
-    user_id: '1'
+    user_id: $user.id
   }
 
   console.log(JSON.stringify(profile))
@@ -306,29 +307,33 @@ $profileUpload.addEventListener('click', (event) => {
 })
 
 $changeUser.addEventListener('submit', (event) => {
-  console.log('user change')
   event.preventDefault()
-
   var userFormData = new FormData($changeUser)
+  var user = userFormData.get('username')
 
-  var user = {
-    id: userFormData.get('username')
-  }
-
-  console.log(JSON.stringify(user))
   fetchUser(user)
     .then(result => {
-      $users.push(result)
+      $user = result.find(object => {
+        return object
+      })
     })
+    .then(result => {
+      var $image = $user.image_url
+      var $username = $user.username
+      changeProfile($image, $username)
+      return $user
+    })
+    console.log($user)
 
-})
+    var $loginSuccess = document.querySelector('#login-success')
+    $loginSuccess.classList.remove('hidden')
+    setTimeout(function(){ $('#login-success').transition('fade')
+    ; }, 1000);
 
-
-
+  })
 
 
 $myFriends.addEventListener('click', event => {
-  // var $user = currentUser.find(getUser)
 
   changeView($viewList, "#friend-list")
   if ($friendList.hasChildNodes()) {
@@ -344,6 +349,7 @@ $myFriends.addEventListener('click', event => {
         $friendList.appendChild($profiles)
       })
     })
+
 })
 
 $myUpload.addEventListener('click', event => {
