@@ -12,6 +12,7 @@ var knex = require('knex')({
   }
 })
 
+// users
 app.post('/users', (req, res) => {
   knex('users').insert(req.body).then(() => {
     res.sendStatus(200)
@@ -19,11 +20,33 @@ app.post('/users', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-  knex.select('id').from('users').then((result) => {
+  knex.select().from('users').then((result) => {
     console.log(result)
     res.json(result)
   })
   .catch(() => {
+    res.sendStatus(500)
+  })
+})
+
+app.get('/users/:id', (req, res) => {
+  knex('users').where('id', req.params.id).then((result) => {
+    console.log(result)
+    res.json(result)
+  })
+  .catch(err => {
+    console.log(err)
+    res.sendStatus(500)
+  })
+})
+
+app.put('/users/:id', (req, res) => {
+  knex('users').where('id', req.params.id).update(req.body).then((result) => {
+    console.log(updated)
+    res.json(result)
+  })
+  .catch((err) => {
+    console.log(err)
     res.sendStatus(500)
   })
 })
@@ -39,10 +62,13 @@ app.post('/profiles', (req, res) => {
   })
 })
 
-app.get('/profiles', (req, res) => {
-  knex.select().from('profiles').then((result) => {
-    console.log(result)
-    res.json(result)
+app.get('/profiles/users/:user_id', (req, res) => {
+  knex.select().from('profiles')
+    .where({
+      user_id: req.params.user_id})
+    .then((result) => {
+      console.log(result)
+      res.json(result)
   })
   .catch(function (err) {
     console.log(err)
@@ -61,16 +87,27 @@ app.get('/profiles/:id', function (req, res) {
   })
 })
 
-app.listen(3000, () => {
-  console.log('listening on port 3000')
+app.put('/profiles/:id', (req, res) => {
+  knex('profiles').where('id', req.params.id).update(req.body).then((result) => {
+    console.log(updated)
+    res.json(result)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.sendStatus(500)
+  })
 })
 
 app.delete('/profiles', (req, res) => {
   knex('profiles')
-  .where('user_id', null)
+  .where('first_name', "")
   .del()
   .then(() => {
     console.log('deleted')
     res.sendStatus(204)
   })
+})
+
+app.listen(3000, () => {
+  console.log('listening on port 3000')
 })

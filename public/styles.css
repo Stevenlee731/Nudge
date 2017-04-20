@@ -1,13 +1,15 @@
-body {
-  padding-top: 65px;
-}
+
 
 #main {
-  margin: 5%;
+  margin-top: 5%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 5%;
 }
 
 #upload {
   padding: 30vh;
+  margin-top: 5%;
 }
 
 #submit-profile {
@@ -39,4 +41,21 @@ body {
 
 div.ui.teal.image.label {
   margin-bottom: 5px !important;
+}
+
+.pusher {
+  height: 100vh;
+}
+
+#user-image {
+  margin-top: 40px !important;
+}
+
+.invisible {
+  display: none;
+}
+
+.login {
+  max-width: 450px;
+  margin: 13vh;
 }
