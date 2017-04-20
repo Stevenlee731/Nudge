@@ -12,7 +12,6 @@ var knex = require('knex')({
   }
 })
 
-// users
 app.post('/users', (req, res) => {
   knex('users').insert(req.body).then(() => {
     res.sendStatus(200)
@@ -39,6 +38,17 @@ app.post('/profiles', (req, res) => {
 
 app.get('/profiles', (req, res) => {
   knex.select().from('profiles').then((result) => {
+    console.log(result)
+    res.json(result)
+  })
+  .catch(function (err) {
+    console.log(err)
+    res.sendstatus(400)
+  })
+})
+
+app.get('/profiles/:id', function (req, res) {
+  knex('profiles').where('id', req.params.id).first().then((result) => {
     console.log(result)
     res.json(result)
   })
