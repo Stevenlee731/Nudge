@@ -31,11 +31,19 @@
   box-shadow: none !important;
 }
 
-#my-profile:hover {
+#my-user:hover {
+  color: #00c4bc !important;
+}
+
+#my-upload:hover {
   color: #00c4bc !important;
 }
 
 #my-friends:hover {
+  color: #00c4bc !important;
+}
+
+#my-profile:hover {
   color: #00c4bc !important;
 }
 
