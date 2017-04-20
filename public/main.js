@@ -1,14 +1,26 @@
-const $viewList = ["#friend-list", "#friend-upload",]
+const $viewList = ["#friend-list", "#friend-upload", "#change-user"]
 const $friendList = document.querySelector('#friend-list')
 const $friendDetail = document.querySelector('#friend-detail')
 const $friendUpload = document.querySelector('#friend-upload')
 const $profileForm = document.querySelector('#profile-form')
 const $uploadButton = document.querySelector('#upload-button')
 const $myFriends = document.querySelector('#my-friends')
+const $myUpload = document.querySelector('#my-upload')
+const $myUser = document.querySelector('#my-user')
 const $profileUpload = document.querySelector('#profile-upload')
+const $changeUser = document.querySelector('#user-form')
+var $user
+
+function changeProfile(url, username) {
+  var $profilePhoto = document.querySelector('#user-image')
+  var $profileName = document.querySelector('#my-user')
+
+  $profilePhoto.setAttribute('src', url)
+  $profileName.textContent = username
+}
 
 function fetchProfiles() {
-  var fetchPromise = fetch('/profiles')
+  var fetchPromise = fetch('/profiles/users/' + $user.id)
   var profilePromise = fetchPromise.then(res => {
     return res.json()
   })
@@ -29,19 +41,28 @@ function fetchProfileDetail(profileID) {
   return profilePromise
 }
 
-function clearView(parent, child) {
-  var $parent = document.querySelector(parent)
-  var $child = document.querySelector(child)
-  $parent.removeChild($child)
+function fetchUser(id) {
+  let fetchPromise = fetch('/users/' + id)
+  let profilePromise = fetchPromise.then(res => {
+    return res.json()
+  })
+  .catch(err => {
+  console.log(err)
+  })
+  return profilePromise
 }
 
 function changeView(viewList, activeView) {
   viewList.forEach(function (view) {
     var $view = document.querySelector(view)
-    $view.classList.add('hidden')
+    $view.classList.add('invisible')
   })
+  if ($friendList.hasChildNodes()) {
+    $('#friend-list').empty()
+  }
+  $('.ui.details.modal.transition').empty()
   var $activeView = document.querySelector(activeView)
-  $activeView.classList.remove('hidden')
+  $activeView.classList.remove('invisible')
 }
 
 function renderDetail(profile) {
@@ -64,6 +85,7 @@ function renderDetail(profile) {
 
   var $imageURL = document.createElement('img')
   $imageURL.setAttribute('src', profile.image_url)
+  $imageURL.classList.add('ui', 'centered', 'medium', 'image')
 
   var $description = document.createElement('div')
   $description.classList.add('description')
@@ -218,6 +240,7 @@ function renderList(profile) {
   $imageURL.setAttribute('src', profile.image_url)
   $imageURL.setAttribute('data-profile-id', profile.id)
 
+
   $content.classList.add('content')
   $content.setAttribute('data-profile-id', profile.id)
   $content.setAttribute('data-user-id', profile.user_id)
@@ -239,7 +262,6 @@ function renderList(profile) {
 }
 
 document.addEventListener("DOMContentLoaded", event => {
-  console.log("DOM fully loaded and parsed");
 })
 
 $uploadButton.addEventListener('click', () => {
@@ -269,7 +291,7 @@ $profileUpload.addEventListener('click', (event) => {
     image_url: profileFormData.get('image_url'),
     locations: profileFormData.get('locations'),
     about_me: profileFormData.get('about_me'),
-    user_id: '1'
+    user_id: $user.id
   }
 
   console.log(JSON.stringify(profile))
@@ -284,13 +306,42 @@ $profileUpload.addEventListener('click', (event) => {
   })
 })
 
+$changeUser.addEventListener('submit', (event) => {
+  event.preventDefault()
+  var userFormData = new FormData($changeUser)
+  var user = userFormData.get('username')
+
+  fetchUser(user)
+    .then(result => {
+      $user = result.find(object => {
+        return object
+      })
+    })
+    .then(result => {
+      var $image = $user.image_url
+      var $username = $user.username
+      changeProfile($image, $username)
+      return $user
+    })
+    console.log($user)
+
+    var $loginSuccess = document.querySelector('#login-success')
+    $loginSuccess.classList.remove('hidden')
+    setTimeout(function(){ $('#login-success').transition('fade')
+    ; }, 1000);
+
+  })
+
+
 $myFriends.addEventListener('click', event => {
+
   changeView($viewList, "#friend-list")
   if ($friendList.hasChildNodes()) {
     $('#friend-list').empty()
   }
   fetchProfiles()
     .then(function (profiles) {
+      console.log(profiles)
       return profiles.map(renderList)
     })
     .then(results => {
@@ -298,6 +349,15 @@ $myFriends.addEventListener('click', event => {
         $friendList.appendChild($profiles)
       })
     })
+
+})
+
+$myUpload.addEventListener('click', event => {
+  changeView($viewList, "#friend-upload")
+})
+
+$myUser.addEventListener('click', event => {
+  changeView($viewList, "#change-user")
 })
 
 document.addEventListener('click', event => {
@@ -312,27 +372,44 @@ document.addEventListener('click', event => {
         let $detailModal = document.querySelector('#detail-list')
         $detailModal.appendChild($profile)
         let $modals = document.querySelector('.dimmer')
-        $('.ui.dimmer.modals.page.transition.hidden').empty()
+        $('.ui.details.modal.transition').empty()
         $('.ui.detail.modal')
           .modal('show')
+          .modal({
+              onHidden: function(){
+                $('.ui.detail.modal').remove()
+              }
+            })
         ;
       })
   }
 })
 
 
-$('#left-menu').first()
-  .sidebar('setting', {transition: 'push'})
-  .sidebar('attach events', '.mobile-button')
-  $('.ui.dropdown')
-  .dropdown()
-;
-
-
 $('.ui.dropdown.item')
   .dropdown()
 ;
 
-$('.card')
-  .transition('horizontal flip')
+$('.profile')
+  .transition()
 ;
+
+$('.user.ui.fluid.selection.dropdown')
+  .dropdown()
+;
+
+
+$('.ui.sidebar')
+  .sidebar('attach events', '.nudge.menu')
+  .sidebar('attach events', '.nudge.item')
+;
+
+$(function(){
+    $('.ui.user.dropdown')
+      .dropdown()
+    ;
+});
+
+$('.user.ui.fluid.selection.dropdown')
+  .dropdown()
+  ;

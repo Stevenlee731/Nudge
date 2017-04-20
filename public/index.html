@@ -8,6 +8,15 @@
   </head>
   <body>
 
+
+  <div class="ui top attached fixed demo nudge menu">
+    <div class="item">
+      <img class="ui mini image" src="http://i.imgur.com/A8r9Pg5.png">
+    </div>
+    <a class="item">
+      <i class="sidebar icon"></i>
+      My Profile
+    </a>
 <div class="ui left vertical sidebar menu" id="left-menu">
   <div class="item">
     <img class="ui small image" src="http://rs276.pbsrc.com/albums/kk27/mayunce/p-hitch.jpg~c200">
@@ -24,23 +33,70 @@
     </div>
 
   </div>
-</div>
 
-<div class="pusher">
-    <div id="main" class="container">
-      <div id="friend-upload">
-        <div id="upload" class="ui very padded center aligned segment">
-          <button id="upload-button" class="ui teal basic button no-shadow">
-            <div><i class="big add user icon"></i></div>
-            <h2>Create Your Friend's Profile!</h2>
-          </button>
-        </div>
+    <div id="sidebar" class="ui labeled icon left inline vertical sidebar menu uncover">
+      <div class="nudge item">
+        <img id="user-image" class="ui circular small image" src="http://i.imgur.com/8BLPFL8.png">
       </div>
-      <div id="friend-list" class="ui link cards hidden">
-      </div>
-      <div id="detail-list" class="hidden"></div>
+      <a id="my-user" class="nudge item">
+        Login
+      </a>
+      <a id="my-friends" class="nudge item">
+        My Friends
+      </a>
+      <a id="my-upload" class="nudge item">
+        Upload Friend's Profile
+      </a>
     </div>
-</div>
+    <div class="pusher">
+        <div id="main" class="container">
+          <div id="change-user">
+            <div class="ui middle aligned center aligned grid">
+              <div class="column login">
+                <h2 class="ui teal image header">
+                  <img src="http://i.imgur.com/A8r9Pg5.png" class="image">
+                  <div class="content">
+                    Log-in to your account
+                  </div>
+                </h2>
+
+                <form id="user-form" class="ui large form success">
+                  <div class="ui stacked segment">
+                    <div class="field">
+                      <select name="username" class="user ui fluid selection dropdown">
+                        <option value="">Select User</option>
+                        <option value="1">Steven Lee</option>
+                        <option value="2">Alex Hitchens</option>
+                        <option value="3">Patti Stanger</option>
+                      </select>
+                    </div>
+                    <button type="submit" id="change-button" class="ui fluid large teal submit button">Login</button>
+                  </div>
+                </form>
+                <div id="login-success" class="ui success hidden message">
+                  <div class="header">You are logged in!</div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div id="friend-upload" class="invisible">
+            <div id="upload" class="ui very padded center aligned segment">
+              <button id="upload-button" class="ui teal basic button no-shadow">
+                <div><i class="big add user icon"></i></div>
+                <h2>Create Your Friend's Profile!</h2>
+              </button>
+            </div>
+          </div>
+          <div id="friend-list" class="ui link cards hidden">
+          </div>
+          <div id="detail-list" class="hidden"></div>
+        </div>
+    </div>
+
+
+
+
 
 <div class="ui modal">
   <i class="close icon"></i>
