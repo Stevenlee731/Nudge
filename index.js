@@ -10,12 +10,15 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 app.use(errorHandler)
 
+var DATABASE_URL = process.env.DATABASE_URL
+var connection = DATABASE_URL || {
+  user: 'stevenlee',
+  database: 'p2-database'
+}
+
 var knex = require('knex')({
   client: 'pg',
-  connection: {
-    user: 'stevenlee',
-    database: 'p2-database'
-  }
+  connection: connection
 })
 
 app.post('/users', (req, res, next) => {
@@ -87,6 +90,12 @@ app.delete('/profiles', (req, res, next) => {
     .catch(err => { next(err) })
 })
 
+
+var port = process.env.PORT || 3000
+
+app.listen(port, () => {
+  console.log('listening on port', port)
+
 app.post('/recommendations/user/:user_id/profile/:profile_id', (req, res, next) => {
   knex.select('*')
     .from('recommendations')
@@ -114,4 +123,5 @@ app.post('/recommendations/user/:user_id/profile/:profile_id', (req, res, next) 
 
 app.listen(3000, () => {
   console.log('listening on port 3000')
+
 })
