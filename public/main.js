@@ -9,47 +9,20 @@ const $myUpload = document.querySelector('#my-upload')
 const $myUser = document.querySelector('#my-user')
 const $profileUpload = document.querySelector('#profile-upload')
 const $changeUser = document.querySelector('#user-form')
-var $user
+var $user = {}
 
-function changeProfile(url, username) {
+function changeProfile(user) {
   var $profilePhoto = document.querySelector('#user-image')
   var $profileName = document.querySelector('#my-user')
 
-  $profilePhoto.setAttribute('src', url)
-  $profileName.textContent = username
+  $profilePhoto.setAttribute('src', user.image_url)
+  $profileName.textContent = user.username
 }
 
-function fetchProfiles() {
-  var fetchPromise = fetch('/profiles/users/' + $user.id)
-  var profilePromise = fetchPromise.then(res => {
-    return res.json()
-  })
-  .catch(err => {
-  console.log(err)
-  })
-  return profilePromise
-}
-
-function fetchProfileDetail(profileID) {
-  let fetchPromise = fetch('/profiles/' + profileID)
-  let profilePromise = fetchPromise.then(res => {
-    return res.json()
-  })
-  .catch(err => {
-  console.log(err)
-  })
-  return profilePromise
-}
-
-function fetchUser(id) {
-  let fetchPromise = fetch('/users/' + id)
-  let profilePromise = fetchPromise.then(res => {
-    return res.json()
-  })
-  .catch(err => {
-  console.log(err)
-  })
-  return profilePromise
+function fetchJSON(url) {
+ return fetch(url)
+  .then(response => response.json())
+  .catch(err => console.log(err))
 }
 
 function changeView(viewList, activeView) {
@@ -66,7 +39,6 @@ function changeView(viewList, activeView) {
 }
 
 function renderDetail(profile) {
-  console.log(profile)
   var $profile = document.createElement('div')
   $profile.classList.add('ui', 'detail', 'modal')
 
@@ -182,40 +154,15 @@ function renderDetail(profile) {
 
 function renderList(profile) {
   var $vowel = function findVowel (occupation) {
-    if (occupation.startsWith('a') === true) {
-      return profile.first_name + ' is an' + ' ' + profile.occupation
+      var firstLetter = profile.occupation[0]
+      var vowels = ['a', 'e', 'i', 'o', 'u']
+      if (vowels.includes(firstLetter.toLowerCase())) {
+        return profile.first_name + ' is an' + ' ' + profile.occupation
+      }
+      else {
+        return profile.first_name + ' is a' + ' ' + profile.occupation
+      }
     }
-    else if (occupation.startsWith('e') === true) {
-      return profile.first_name + ' is an' + ' ' + profile.occupation
-    }
-    else if (occupation.startsWith('i') === true) {
-      return profile.first_name + ' is an' + ' ' + profile.occupation
-    }
-    else if (occupation.startsWith('o') === true) {
-      return profile.first_name + ' is an' + ' ' + profile.occupation
-    }
-    else if (occupation.startsWith('u') === true) {
-      return profile.first_name + ' is an' + ' ' + profile.occupation
-    }
-    else if (occupation.startsWith('A') === true) {
-      return profile.first_name + ' is an' + ' ' + profile.occupation
-    }
-    else if (occupation.startsWith('E') === true) {
-      return profile.first_name + ' is an' + ' ' + profile.occupation
-    }
-    else if (occupation.startsWith('I') === true) {
-      return profile.first_name + ' is an' + ' ' + profile.occupation
-    }
-    else if (occupation.startsWith('O') === true) {
-      return profile.first_name + ' is an' + ' ' + profile.occupation
-    }
-    else if (occupation.startsWith('U') === true) {
-      return profile.first_name + ' is an' + ' ' + profile.occupation
-    }
-    else {
-      return profile.first_name + ' is a' + ' ' + profile.occupation
-    }
-  }
 
   var $profile = document.createElement('div')
   var $imageHolder = document.createElement('div')
@@ -240,7 +187,6 @@ function renderList(profile) {
   $imageURL.setAttribute('src', profile.image_url)
   $imageURL.setAttribute('data-profile-id', profile.id)
 
-
   $content.classList.add('content')
   $content.setAttribute('data-profile-id', profile.id)
   $content.setAttribute('data-user-id', profile.user_id)
@@ -262,24 +208,17 @@ function renderList(profile) {
 }
 
 document.addEventListener("DOMContentLoaded", event => {
-})
 
 $uploadButton.addEventListener('click', () => {
   $('.ui.modal')
     .modal('show')
-  ;
-
   $('.ui.dropdown')
     .dropdown()
-  ;
 })
 
 $profileUpload.addEventListener('click', (event) => {
-  console.log('upload')
   event.preventDefault()
-
   var profileFormData = new FormData($profileForm)
-
   var profile = {
     first_name: profileFormData.get('first_name'),
     last_name: profileFormData.get('last_name'),
@@ -293,9 +232,6 @@ $profileUpload.addEventListener('click', (event) => {
     about_me: profileFormData.get('about_me'),
     user_id: $user.id
   }
-
-  console.log(JSON.stringify(profile))
-
   fetch('/profiles', {
     method: 'post',
     headers: {
@@ -310,46 +246,30 @@ $changeUser.addEventListener('submit', (event) => {
   event.preventDefault()
   var userFormData = new FormData($changeUser)
   var user = userFormData.get('username')
-
-  fetchUser(user)
-    .then(result => {
-      $user = result.find(object => {
-        return object
-      })
+  fetchJSON('/users/' + user)
+    .then(user => {
+      changeProfile(user)
+      $user = user
     })
-    .then(result => {
-      var $image = $user.image_url
-      var $username = $user.username
-      changeProfile($image, $username)
-      return $user
-    })
-    console.log($user)
-
+    .catch(err => { console.log(err) })
     var $loginSuccess = document.querySelector('#login-success')
     $loginSuccess.classList.remove('hidden')
     setTimeout(function(){ $('#login-success').transition('fade')
     ; }, 1000);
-
   })
 
-
 $myFriends.addEventListener('click', event => {
-
   changeView($viewList, "#friend-list")
   if ($friendList.hasChildNodes()) {
     $('#friend-list').empty()
   }
-  fetchProfiles()
-    .then(function (profiles) {
-      console.log(profiles)
-      return profiles.map(renderList)
-    })
+  fetchJSON('/profiles/users/' + $user.id)
+    .then(profiles => { return profiles.map(renderList) })
     .then(results => {
       results.forEach($profiles => {
         $friendList.appendChild($profiles)
       })
     })
-
 })
 
 $myUpload.addEventListener('click', event => {
@@ -363,12 +283,9 @@ $myUser.addEventListener('click', event => {
 document.addEventListener('click', event => {
   var profileID = event.target.getAttribute('data-profile-id')
   if (event.target.getAttribute('data-profile-id')) {
-    fetchProfileDetail(profileID)
-      .then(profile => {
-        return renderDetail(profile)
-      })
+    fetchJSON('/profiles/' + profileID)
+      .then(profile => { return renderDetail(profile) })
       .then($profile => {
-        console.log($profile)
         let $detailModal = document.querySelector('#detail-list')
         $detailModal.appendChild($profile)
         let $modals = document.querySelector('.dimmer')
@@ -380,7 +297,6 @@ document.addEventListener('click', event => {
                 $('.ui.detail.modal').remove()
               }
             })
-        ;
       })
   }
 })
@@ -388,28 +304,23 @@ document.addEventListener('click', event => {
 
 $('.ui.dropdown.item')
   .dropdown()
-;
 
 $('.profile')
   .transition()
-;
 
 $('.user.ui.fluid.selection.dropdown')
   .dropdown()
-;
-
 
 $('.ui.sidebar')
   .sidebar('attach events', '.nudge.menu')
   .sidebar('attach events', '.nudge.item')
-;
 
 $(function(){
     $('.ui.user.dropdown')
       .dropdown()
-    ;
-});
+})
 
 $('.user.ui.fluid.selection.dropdown')
   .dropdown()
-  ;
+
+})
