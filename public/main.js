@@ -11,6 +11,15 @@ const $profileUpload = document.querySelector('#profile-upload')
 const $changeUser = document.querySelector('#user-form')
 var $user = {}
 
+function createRecs(user) {
+  fetch('/recommendations/user/:user_id/profile/:profied_id')
+     .then(response => response.json())
+     .catch(err => console.log(err))
+  .then(result => {
+    console.log(result)
+  })
+}
+
 function changeProfile(user) {
   var $profilePhoto = document.querySelector('#user-image')
   var $profileName = document.querySelector('#my-user')
@@ -39,6 +48,7 @@ function changeView(viewList, activeView) {
 }
 
 function renderDetail(profile) {
+
   var $profile = document.createElement('div')
   $profile.classList.add('ui', 'detail', 'modal')
 
@@ -107,16 +117,19 @@ function renderDetail(profile) {
   $seekingDetail.classList.add('detail')
   $seekingDetail.textContent = profile.seeking
 
+  var $recHeader = document.createElement('h4')
+  $recHeader.textContent = 'Recommended by'
+
   var $actions = document.createElement('div')
   $actions.classList.add('actions')
 
   var $cancelButton = document.createElement('div')
   $cancelButton.classList.add('ui', 'black', 'deny', 'button')
-  $cancelButton.textContent = 'Cancel'
+  $cancelButton.textContent = 'Close'
 
   var $okButton = document.createElement('div')
-  $okButton.classList.add('ui', 'positive', 'right', 'labeled', 'icon', 'button')
-  $okButton.textContent = 'Ok'
+  $okButton.classList.add('ui', 'positive', 'right', 'icon', 'button')
+  $okButton.textContent = 'Recommend!'
 
   $profile.appendChild($closeIcon)
   $profile.appendChild($nameHeader)
@@ -130,6 +143,7 @@ function renderDetail(profile) {
   $description.appendChild($bioHeader)
   $description.appendChild($bioBody)
   $description.appendChild($labelsContainer)
+  $description.appendChild($recHeader)
 
   $labelsContainer.appendChild($occupation)
   $occupation.appendChild($occupationDetail)
@@ -145,6 +159,18 @@ function renderDetail(profile) {
 
   $labelsContainer.appendChild($seeking)
   $seeking.appendChild($seekingDetail)
+
+  var $rec = document.createElement('div')
+  $rec.classList.add('ui', 'image', 'label')
+
+  var $recImage = document.createElement('img')
+  $recImage.setAttribute('src', $user.image_url)
+  var $recUser = document.createElement('span')
+
+  $description.appendChild($rec)
+  $rec.appendChild($recImage)
+  $rec.appendChild($recUser)
+  $recUser.textContent = $user.username
 
   $actions.appendChild($cancelButton)
   $actions.appendChild($okButton)
