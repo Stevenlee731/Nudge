@@ -13,7 +13,8 @@
     "rollback": "knex migrate:rollback",
     "seed:make": "knex seed:make",
     "seed:run": "knex seed:run",
-    "start": "node index.js"
+    "start": "node index.js",
+    "heroku-postbuild": "npm run migrate && npm run seed:run"
   },
   "keywords": [],
   "author": "",
