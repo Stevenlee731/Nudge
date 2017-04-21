@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A website for people who are in a relationship who want to help their single friends find love",
   "main": "index.js",
+  "engines": {
+    "node": "6.10.0"
+  },
   "scripts": {
     "watch": "nodemon index.js",
     "migrate:make": "knex migrate:make",
