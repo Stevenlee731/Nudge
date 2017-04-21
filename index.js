@@ -90,12 +90,6 @@ app.delete('/profiles', (req, res, next) => {
     .catch(err => { next(err) })
 })
 
-
-var port = process.env.PORT || 3000
-
-app.listen(port, () => {
-  console.log('listening on port', port)
-
 app.post('/recommendations/user/:user_id/profile/:profile_id', (req, res, next) => {
   knex.select('*')
     .from('recommendations')
@@ -105,7 +99,7 @@ app.post('/recommendations/user/:user_id/profile/:profile_id', (req, res, next) 
       })
     .then(result => {
       if (result.length > 0) {
-        return 
+        return
       }
       else {
         console.log(result)
@@ -121,7 +115,8 @@ app.post('/recommendations/user/:user_id/profile/:profile_id', (req, res, next) 
     .catch(err => { next(err) })
 })
 
-app.listen(3000, () => {
-  console.log('listening on port 3000')
+var port = process.env.PORT || 3000
 
+app.listen(port, () => {
+  console.log('listening on port', port)
 })
