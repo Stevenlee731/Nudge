@@ -4,11 +4,13 @@
   "description": "A website for people who are in a relationship who want to help their single friends find love",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon index.js",
     "migrate:make": "knex migrate:make",
     "migrate": "knex migrate:latest",
-    "rollback": "knex migrate:rollback"
+    "rollback": "knex migrate:rollback",
+    "seed:make": "knex seed:make",
+    "seed:run": "knex seed:run",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
