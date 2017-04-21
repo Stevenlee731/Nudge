@@ -1,208 +1,195 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
-    <link rel="stylesheet" href="styles.css">
-    <title>Nudge | Finding Love Through You Friends</title>
-  </head>
-  <body>
-
+<head>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+  <link rel="stylesheet" href="styles.css">
+  <title>Nudge | Finding Love Through You Friends</title>
+</head>
+<body>
   <div class="ui top attached fixed demo nudge menu">
     <div class="item">
       <img class="ui mini image" src="http://i.imgur.com/A8r9Pg5.png">
     </div>
-    <a class="item">
+    <a id="my-profile" class="item">
       <i class="sidebar icon"></i>
       My Profile
     </a>
   </div>
-
-    <div id="sidebar" class="ui labeled icon left inline vertical sidebar menu uncover">
-      <div class="nudge item">
-        <img id="user-image" class="ui circular small image" src="http://i.imgur.com/8BLPFL8.png">
-      </div>
-      <a id="my-user" class="nudge item">
-        Login
-      </a>
-      <a id="my-friends" class="nudge item">
-        My Friends
-      </a>
-      <a id="my-upload" class="nudge item">
-        Upload Friend's Profile
-      </a>
+  <div id="sidebar" class="ui labeled icon left inline vertical sidebar menu uncover">
+    <div class="nudge item">
+      <img id="user-image" class="ui circular small image" src="http://i.imgur.com/8BLPFL8.png">
     </div>
-    <div class="pusher">
-        <div id="main" class="container">
-          <div id="change-user">
-            <div class="ui middle aligned center aligned grid">
-              <div class="column login">
-                <h2 class="ui teal image header">
-                  <img src="http://i.imgur.com/A8r9Pg5.png" class="image">
-                  <div class="content">
-                    Log-in to your account
-                  </div>
-                </h2>
-
-                <form id="user-form" class="ui large form success">
-                  <div class="ui stacked segment">
-                    <div class="field">
-                      <select name="username" class="user ui fluid selection dropdown">
-                        <option value="">Select User</option>
-                        <option value="1">Steven Lee</option>
-                        <option value="2">Alex Hitchens</option>
-                        <option value="3">Patti Stanger</option>
-                      </select>
-                    </div>
-                    <button type="submit" id="change-button" class="ui fluid large teal submit button">Login</button>
-                  </div>
-                </form>
-                <div id="login-success" class="ui success hidden message">
-                  <div class="header">You are logged in!</div>
+    <a id="my-user" class="nudge item">
+      Login
+    </a>
+    <a id="my-friends" class="nudge item">
+      My Friends
+    </a>
+    <a id="my-upload" class="nudge item">
+      Upload Friend's Profile
+    </a>
+  </div>
+  <div class="pusher">
+    <div id="main" class="container">
+      <div id="change-user">
+        <div class="ui middle aligned center aligned grid">
+          <div class="column login">
+            <h2 class="ui teal image header">
+              <img src="http://i.imgur.com/A8r9Pg5.png" class="image">
+              <div class="content">
+                Log-in to your account
+              </div>
+            </h2>
+            <form id="user-form" class="ui large form success">
+              <div class="ui stacked segment">
+                <div class="field">
+                  <select name="username" class="user ui fluid selection dropdown">
+                    <option value="">Select User</option>
+                    <option value="1">Steven Lee</option>
+                    <option value="3">Alex Hitchens</option>
+                    <option value="2">Patti Stanger</option>
+                  </select>
                 </div>
-
+                <button type="submit" id="change-button" class="ui fluid large teal submit button">Login</button>
+              </div>
+            </form>
+            <div id="login-success" class="ui success hidden message">
+              <div class="header">You are logged in!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="friend-upload" class="invisible">
+        <div id="upload" class="ui very padded center aligned segment">
+          <button id="upload-button" class="ui teal basic button no-shadow">
+            <div><i class="big add user icon"></i></div>
+            <h2>Create Your Friend's Profile!</h2>
+          </button>
+        </div>
+      </div>
+      <div id="friend-list" class="ui link cards hidden">
+      </div>
+      <div id="detail-list" class="hidden"></div>
+    </div>
+  </div>
+  <div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+      Tell us about your friend!
+    </div>
+    <div class="image content">
+      <div class="ui medium slide masked reveal image">
+        <img class="ui medium rounded image visible content" src="https://semantic-ui.com/images/wireframe/image.png">
+        <img src="http://i.imgur.com/8BLPFL8.png" class="hidden content">
+      </div>
+      <div class="description">
+        <form method="post" id="profile-form" class="ui form">
+          <div class="field">
+            <div class="two fields">
+              <div class="field">
+                <input type="text" name="first_name" placeholder="First Name">
+              </div>
+              <div class="field">
+                <input type="text" name="last_name" placeholder="Last Name">
               </div>
             </div>
           </div>
-          <div id="friend-upload" class="invisible">
-            <div id="upload" class="ui very padded center aligned segment">
-              <button id="upload-button" class="ui teal basic button no-shadow">
-                <div><i class="big add user icon"></i></div>
-                <h2>Create Your Friend's Profile!</h2>
-              </button>
-            </div>
-          </div>
-          <div id="friend-list" class="ui link cards hidden">
-          </div>
-          <div id="detail-list" class="hidden"></div>
-        </div>
-    </div>
-
-
-
-
-
-<div class="ui modal">
-  <i class="close icon"></i>
-  <div class="header">
-    Tell us about your friend!
-  </div>
-  <div class="image content">
-    <div class="ui medium slide masked reveal image">
-      <img class="ui medium rounded image visible content" src="https://semantic-ui.com/images/wireframe/image.png">
-      <img src="http://i.imgur.com/8BLPFL8.png" class="hidden content">
-    </div>
-    <div class="description">
-      <form method="post" id="profile-form" class="ui form">
-        <div class="field">
-          <div class="two fields">
-            <div class="field">
-              <input type="text" name="first_name" placeholder="First Name">
-            </div>
-            <div class="field">
-              <input type="text" name="last_name" placeholder="Last Name">
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="four fields">
-            <div class="field">
-              <select name="gender" class="ui fluid dropdown">
-                <option value="">Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-            <div class="field">
-              <select name="age" class="ui fluid dropdown">
-                <option value="">Age</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-                <option value="25">25</option>
-                <option value="26">26</option>
-                <option value="27">27</option>
-                <option value="28">28</option>
-                <option value="29">29</option>
-                <option value="30">30</option>
-                <option value="31">31</option>
-                <option value="32">32</option>
-                <option value="33">33</option>
-                <option value="34">34</option>
-                <option value="35">35</option>
-                <option value="36">36</option>
-                <option value="37">37</option>
-                <option value="38">38</option>
-                <option value="39">39</option>
-                <option value="40">40</option>
-              </select>
-            </div>
-            <div class="field">
-              <select name="ethnicity" class="ui fluid dropdown">
-                <option value="">Ethnicity</option>
-                <option value="ca">Caucasian</option>
-                <option value="bl">Black</option>
-                <option value="as">Asian/Pacific Islander</option>
-                <option value="in">Indian</option>
-                <option value="mi">Middle Eastern</option>
-                <option value="hi">Hispanic</option>
-                <option value="ot">Other Ethnicity</option>
-              </select>
-            </div>
-            <div class="field">
-              <select name="seeking" class="ui fluid dropdown">
-                <option value="">Seeking</option>
-                <option value="men">Men</option>
-                <option value="women">Women</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="three fields">
-            <div class="field">
-              <select name="locations" class="ui fluid dropdown">
-                <option value="">Location</option>
-                <option value="Los Angeles">Los Angeles</option>
-                <option value="Orange County">Orange County</option>
-              </select>
-            </div>
-            <div class="field">
-              <input type="text" name="occupation" placeholder="Occupation">
-            </div>
-            <div class="field">
-              <input type="text" name="image_url" placeholder="Image URL">
-            </div>
-          </div>
-        </div>
-        <div class="ui form">
           <div class="field">
-            <input name="about_me" placeholder="One GREAT sentence about your friend!" type="text">
+            <div class="four fields">
+              <div class="field">
+                <select name="gender" class="ui fluid dropdown">
+                  <option value="">Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="field">
+                <select name="age" class="ui fluid dropdown">
+                  <option value="">Age</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                  <option value="32">32</option>
+                  <option value="33">33</option>
+                  <option value="34">34</option>
+                  <option value="35">35</option>
+                  <option value="36">36</option>
+                  <option value="37">37</option>
+                  <option value="38">38</option>
+                  <option value="39">39</option>
+                  <option value="40">40</option>
+                </select>
+              </div>
+              <div class="field">
+                <select name="ethnicity" class="ui fluid dropdown">
+                  <option value="">Ethnicity</option>
+                  <option value="ca">Caucasian</option>
+                  <option value="bl">Black</option>
+                  <option value="as">Asian/Pacific Islander</option>
+                  <option value="in">Indian</option>
+                  <option value="mi">Middle Eastern</option>
+                  <option value="hi">Hispanic</option>
+                  <option value="ot">Other Ethnicity</option>
+                </select>
+              </div>
+              <div class="field">
+                <select name="seeking" class="ui fluid dropdown">
+                  <option value="">Seeking</option>
+                  <option value="men">Men</option>
+                  <option value="women">Women</option>
+                </select>
+              </div>
+            </div>
           </div>
-        </div>
-      </form>
+          <div class="field">
+            <div class="three fields">
+              <div class="field">
+                <select name="locations" class="ui fluid dropdown">
+                  <option value="">Location</option>
+                  <option value="Los Angeles">Los Angeles</option>
+                  <option value="Orange County">Orange County</option>
+                </select>
+              </div>
+              <div class="field">
+                <input type="text" name="occupation" placeholder="Occupation">
+              </div>
+              <div class="field">
+                <input type="text" name="image_url" placeholder="Image URL">
+              </div>
+            </div>
+          </div>
+          <div class="ui form">
+            <div class="field">
+              <input name="about_me" placeholder="One GREAT sentence about your friend!" type="text">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui black deny button">
+        Nope
+      </div>
+      <div id="profile-upload" type="submit" value="submit" form="profile-form" class="ui positive right labeled icon button">
+        Looks Good!
+        <i class="checkmark icon"></i>
+      </div>
     </div>
   </div>
-  <div class="actions">
-    <div class="ui black deny button">
-      Nope
-    </div>
-    <div id="profile-upload" type="submit" value="submit" form="profile-form" class="ui positive right labeled icon button">
-      Looks Good!
-      <i class="checkmark icon"></i>
-    </div>
-  </div>
-</div>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
-    <script src="main.js"></script>
-  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+  <script src="main.js"></script>
+</body>
 </html>
