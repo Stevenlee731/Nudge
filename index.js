@@ -21,7 +21,7 @@ var knex = require('knex')({
 app.post('/users', (req, res, next) => {
   knex('users')
     .insert(req.body)
-    .then(res => { res.sendStatus(200) })
+    .then(() => {res.sendStatus(200)})
     .catch(err => { next(err) })
 })
 
@@ -51,7 +51,7 @@ app.put('/users/:id', (req, res, next) => {
 app.post('/profiles', (req, res, next) => {
   knex('profiles')
     .insert(req.body)
-    .then(res => { res.sendStatus(200) })
+    .then(() => {res.sendStatus(200)})
     .catch(err => { next(err) })
 })
 
@@ -84,6 +84,31 @@ app.delete('/profiles', (req, res, next) => {
     .where('first_name', "")
     .del()
     .then(() => { res.sendStatus(204) })
+    .catch(err => { next(err) })
+})
+
+app.post('/recommendations/user/:user_id/profile/:profile_id', (req, res, next) => {
+  knex.select('*')
+    .from('recommendations')
+    .where({
+      user_id: req.params.user_id,
+      profile_id: req.params.profile_id
+      })
+    .then(result => {
+      if (result.length > 0) {
+        return 
+      }
+      else {
+        console.log(result)
+        return knex('recommendations')
+          .insert(
+            {
+            user_id: req.params.user_id,
+            profile_id: req.params.profile_id
+            })
+      }
+    })
+    .then(() => {res.sendStatus(200)})
     .catch(err => { next(err) })
 })
 
