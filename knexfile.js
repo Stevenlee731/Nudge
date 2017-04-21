@@ -9,3 +9,8 @@ exports.development = {
     tableName: 'knex_migrations'
   }
 }
+
+exports.production = {
+  client: 'postgresql',
+  connection: process.env.DATABASE_URL
+}
