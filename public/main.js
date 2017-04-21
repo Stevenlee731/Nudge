@@ -129,7 +129,7 @@ function renderDetail(profile) {
 
   var $okButton = document.createElement('div')
   $okButton.classList.add('ui', 'positive', 'right', 'icon', 'button')
-  $okButton.textContent = 'Recommended!'
+  $okButton.textContent = 'Recommend!'
 
   $profile.appendChild($closeIcon)
   $profile.appendChild($nameHeader)
