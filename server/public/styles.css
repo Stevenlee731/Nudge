@@ -1,0 +1,68 @@
+
+#main {
+  margin-top: 5%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 5%;
+}
+
+#upload {
+  padding: 30vh;
+  margin-top: 5%;
+}
+
+#submit-profile {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.margins {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.ui.basic.teal.button.no-shadow {
+  box-shadow: none !important;
+}
+
+#my-user:hover {
+  color: #00c4bc !important;
+}
+
+#my-upload:hover {
+  color: #00c4bc !important;
+}
+
+#my-friends:hover {
+  color: #00c4bc !important;
+}
+
+#my-profile:hover {
+  color: #00c4bc !important;
+}
+
+div.ui.teal.image.label {
+  margin-bottom: 5px !important;
+}
+
+.pusher {
+  height: 100vh;
+}
+
+#user-image {
+  margin-top: 55px !important;
+}
+
+.invisible {
+  display: none;
+}
+
+.login {
+  max-width: 450px;
+  margin: 13vh;
+}

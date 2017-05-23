@@ -8,6 +8,10 @@
   },
   "scripts": {
     "watch": "nodemon index.js",
+    "lint": "run-p lint:*",
+    "lint:html": "htmlhint ./**/*.html",
+    "lint:css": "stylelint ./**/*.css",
+    "lint:js": "eslint ./**/*.js",
     "migrate:make": "knex migrate:make",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
@@ -23,9 +27,29 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "knex": "^0.12.9",
-    "pg": "^6.1.5"
+    "pg": "^6.1.5",
+    "dotenv": "^4.0.0",
+    "level": "^1.7.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "redux": "^3.6.0",
+    "semantic-ui-react": "^0.68.3"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^14.3.0",
+    "eslint": "3.16.1",
+    "eslint-config-standard": "6.2.1",
+    "eslint-plugin-promise": "3.4.2",
+    "eslint-plugin-react": "6.10.0",
+    "eslint-plugin-standard": "2.0.1",
+    "htmlhint": "0.9.13",
+    "husky": "0.13.1",
+    "npm-run-all": "4.0.2",
+    "stylelint": "7.9.0",
+    "stylelint-config-standard": "16.0.0",
+    "watchify": "^3.9.0"
   }
 }
