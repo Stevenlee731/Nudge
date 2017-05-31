@@ -3,3 +3,5 @@ main.js
 node_modules/
 *.log
 .env
+Insert-users.sql
+knexfile.js
