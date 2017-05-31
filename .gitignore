@@ -1,2 +1,7 @@
-node_modules
+main.js
 .DS_Store
+node_modules/
+*.log
+.env
+Insert-users.sql
+knexfile.js
